@@ -31,10 +31,9 @@ public class FuchsiaApplication {
 	//TODO: Create a user
     @RequestMapping(value = "/api/exercise/new-user", headers = "Content-Type=text/plain", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<User> createUser(HttpServletRequest request, HttpServletResponse response, Model model) {
+	public ResponseEntity<User> createUser(@RequestParam("name") String userName) {
 		//User user1 = new User(name);
-		String jsonString = request.getParameter("json");
-		System.out.println(jsonString);
+		System.out.println("userName = " + userName);
 		return null;
 	}
 

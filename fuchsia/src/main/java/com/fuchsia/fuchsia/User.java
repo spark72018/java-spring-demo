@@ -1,7 +1,9 @@
 package com.fuchsia.fuchsia;
 
 import org.json.JSONObject;
+import lombok.Data;
 
+@Data
 public class User {
     private String username;
 
