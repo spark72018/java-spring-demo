@@ -11,13 +11,12 @@ public class User {
     private String firstName;
     private String lastName;
     private int userInt;
-
+    private ArrayList<Exercise> exercises = new ArrayList<>();
 
     public User(String firstName, String lastName) {
         userInt = _id;
         this.firstName = firstName;
         this.lastName = lastName;
-
         userArray.add(this);
 
         System.out.println("userArray " + userArray.toString());
@@ -25,7 +24,19 @@ public class User {
         _id++;
     }
 
-    public static ArrayList<User> getUserArray() {
+    public static ArrayList<User> getUserArray(){
         return userArray;
+    }
+
+    public void addExercise(Exercise e){
+        exercises.add(e);
+    }
+
+    public static User getUser(int id){
+        for(User i : userArray){
+            if( i.getUserInt() == id)
+                return i;
+        }
+        return null;
     }
 }

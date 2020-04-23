@@ -28,10 +28,9 @@ public class FuchsiaApplication {
 /*
     @RequestMapping(value = "/api/exercise/new-user", headers = "Content-Type=text/plain", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<User> createUser(HttpServletRequest request, HttpServletResponse response, Model model) {
+	public ResponseEntity<User> createUser(@RequestParam("name") String userName) {
 		//User user1 = new User(name);
-		String jsonString = request.getParameter("json");
-		System.out.println(jsonString);
+		System.out.println("userName = " + userName);
 		return null;
 	}
 */
@@ -69,6 +68,20 @@ public class FuchsiaApplication {
 	@GetMapping(value = "/api/exercise/users", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity getAllUsersController() {
 		return new ResponseEntity<>(User.getUserArray(), HttpStatus.OK);
+	}
+
+	@GetMapping(value = "api/exercise/users", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity getAllUsers() {
+		System.out.println("user_array : " + User.getUserArray());
+		return new ResponseEntity<ArrayList<User>>(User.getUserArray(), HttpStatus.OK);
+	}
+
+	@PostMapping(value = "api/exercise/add", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity addExercise(@RequestBody Exercise e) {
+		User user = User.getUser(Integer.parseInt(e.getUserId()));
+		user.addExercise(e);
+		System.out.println("exercise -> : " + user.getExercises());
+		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 
 }
