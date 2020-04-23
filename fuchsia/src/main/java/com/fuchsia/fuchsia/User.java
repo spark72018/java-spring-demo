@@ -13,6 +13,10 @@ public class User {
     private int userInt;
     private ArrayList<Exercise> exercises = new ArrayList<>();
 
+    static {
+        userArray.add(new User("Mulah", "Kimster"));
+    }
+
     public User(String firstName, String lastName) {
         userInt = _id;
         this.firstName = firstName;

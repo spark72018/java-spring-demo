@@ -59,29 +59,51 @@ public class FuchsiaApplication {
 	}
 */
 
-	@PostMapping(value = "/something", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/api/user/add", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity userController(@RequestBody User user) {
 		System.out.println("user is " + user.toString());
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 
+
 	@GetMapping(value = "/api/exercise/users", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity getAllUsersController() {
+	public ResponseEntity getAllUsers() {
+		System.out.println("user_array : " + User.getUserArray());
 		return new ResponseEntity<>(User.getUserArray(), HttpStatus.OK);
 	}
 
-	@GetMapping(value = "api/exercise/users", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity getAllUsers() {
-		System.out.println("user_array : " + User.getUserArray());
-		return new ResponseEntity<ArrayList<User>>(User.getUserArray(), HttpStatus.OK);
-	}
-
-	@PostMapping(value = "api/exercise/add", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity addExercise(@RequestBody Exercise e) {
-		User user = User.getUser(Integer.parseInt(e.getUserId()));
-		user.addExercise(e);
+	@PostMapping(value = "/api/exercise/add", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity addExercise(@RequestBody Exercise exercise) {
+		User user = User.getUser(exercise.getUserId());
+		user.addExercise(exercise);
 		System.out.println("exercise -> : " + user.getExercises());
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 
 }
+
+/* EXPENSE TRACKER PROJECT
+As a user, I should be able tO;
+	1. Add an expense to my account that contains:
+		- Name of what I bought
+		- How much I spent,
+		- Note about purchase
+		- Date of purchase
+
+	2. Categorize my expenses:
+		- in default categories
+		- in user created custom categories
+
+	3. Sort them according to
+		- date
+		- amount spent
+
+	4. Set weekly or monthly expense goals:
+		- app will notify user if he/she is near limit (or go over)
+
+	5. Persist my data in a database (PostgreSQL)
+
+	6. Auto-generate email for summary
+
+
+ */
