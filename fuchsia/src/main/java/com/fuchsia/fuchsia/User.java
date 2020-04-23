@@ -24,4 +24,8 @@ public class User {
 
         _id++;
     }
+
+    public static ArrayList<User> getUserArray() {
+        return userArray;
+    }
 }
