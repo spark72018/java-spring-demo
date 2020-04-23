@@ -7,6 +7,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 @SpringBootApplication
 @RestController // this annotation tells Spring that this code describes an endpoint that should
 // be made available over the web
@@ -62,6 +64,20 @@ public class FuchsiaApplication {
 	public ResponseEntity userController(@RequestBody User user) {
 		System.out.println("user is " + user.toString());
 		return new ResponseEntity<User>(user, HttpStatus.OK);
+	}
+
+	@GetMapping(value = "api/exercise/users", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity getAllUsers() {
+		System.out.println("user_array : " + User.getUserArray());
+		return new ResponseEntity<ArrayList<User>>(User.getUserArray(), HttpStatus.OK);
+	}
+
+	@PostMapping(value = "api/exercise/add", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity addExercise(@RequestBody Exercise e) {
+		User user = User.getUser(Integer.parseInt(e.getUserId()));
+		user.addExercise(e);
+		System.out.println("exercise -> : " + user.getExercises());
+		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 
 }
